@@ -74,19 +74,15 @@ const MonsterComponent = React.forwardRef((props, ref) => {
       setMonsters(options)      
     }
     async function monsterDetails(value) {
+      console.log({value})
       const monster = await getMonsterDetails(value)
       console.log(monster)
       console.log({props})
-      const finalMonster = {
-        index: monster.index,
-        armor_class: monster.armor_class,
-        name: monster.name
-      }
       const patch = PatchEvent.from({
-        value: finalMonster,
+        value: monster,
         _key: props.value?._key  || Math.random().toString().replace('.', ''),
-        type: monster ? 'set' : 'unset',
-        path: Object.keys(finalMonster)
+        path: ['aMonster'],
+        type: monster ? 'set' : 'unset'
       })
       console.log(patch)
       onChange(patch)
